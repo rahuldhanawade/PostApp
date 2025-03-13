@@ -1,34 +1,26 @@
 package com.example.duadm_post.ui.home.postFragment
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.duadm_post.R
 import com.example.duadm_post.databinding.ItemPostsBinding
 import com.example.duadm_post.model.PostDataResponse
+import com.example.duadm_post.ui.home.favoritesFragment.PostDiffCallback
 
-class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
-
-    private var items = mutableListOf<PostDataResponse>()
-
-    fun submitList(post: List<PostDataResponse>){
-        items.clear()
-        items.addAll(post)
-        notifyDataSetChanged()
-    }
+class PostAdapter(private val onFavoriteClick: (PostDataResponse) -> Unit) :
+    ListAdapter<PostDataResponse, PostAdapter.PostViewHolder>(PostDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = ItemPostsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-     return  items.size
-    }
-
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(items[position], position = position)
+        holder.bind(getItem(position), position)
     }
 
     inner class PostViewHolder(private val binding: ItemPostsBinding) :
@@ -49,12 +41,11 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
             )
 
             binding.ivFav.setOnClickListener {
-                post.isFavorites = !post.isFavorites
+                onFavoriteClick(post)
                 notifyItemChanged(position)
             }
 
             binding.executePendingBindings()
         }
     }
-
 }

@@ -29,10 +29,14 @@ class PostFragment : Fragment() {
             inflater, R.layout.fragment_post, container, false
         )
 
+        postViewModel.loadPosts()
+
         dataBinding.lifecycleOwner = viewLifecycleOwner
         dataBinding.viewModel = postViewModel
 
-        postAdapter = PostAdapter()
+        postAdapter = PostAdapter{ post ->
+            postViewModel.toggleFavorite(post)
+        }
 
         dataBinding.recyclerViewPost.layoutManager = LinearLayoutManager(context)
         dataBinding.recyclerViewPost.adapter = postAdapter

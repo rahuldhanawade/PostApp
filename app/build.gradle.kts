@@ -79,6 +79,7 @@ dependencies {
     // Room for local database
     implementation (libs.room)
     kapt (libs.roomCompiler)
+    implementation (libs.room.ktx)
 
     // Glide for image loading
     implementation (libs.glide)
