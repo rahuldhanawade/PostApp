@@ -28,7 +28,8 @@ class PostAdapter(private val onFavoriteClick: (PostDataResponse) -> Unit) :
 
         fun bind(post: PostDataResponse, position: Int) {
             binding.item = post
-
+            binding.itemtitle.text = post.title
+            binding.itemBody.text = post.body
             val imageUrl = "https://fastly.picsum.photos/id/866/536/354.jpg?hmac=tGofDTV7tl2rprappPzKFiZ9vDh5MKj39oa2D--gqhA"
 
             Glide.with(binding.root.context)

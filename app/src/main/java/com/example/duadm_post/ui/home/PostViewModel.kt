@@ -27,7 +27,7 @@ class PostViewModel @Inject constructor(
     fun loadPosts() {
         viewModelScope.launch(Dispatchers.IO) {
             val count = getCount()
-            if (networkHelper.isNetworkAvailable() && count == 0) {
+            if (networkHelper.isNetworkAvailable()) {
                 val postsData = mainRepository.getPostData()
                 savePostDB(postsData)
             } else {
