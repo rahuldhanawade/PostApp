@@ -50,7 +50,7 @@ class PostViewModel @Inject constructor(
 
     private fun getPostDataDBList() {
         viewModelScope.launch(Dispatchers.IO) {
-
+            mainRepository.getPostDataDBList()
         }
     }
 
